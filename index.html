@@ -1,53 +1,65 @@
 <!doctype html>
-<html lang="en">
+<html lang="bn">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Tokkor — Tournaments. Prizes. Coming Soon.</title>
-  <meta name="description" content="Join Tokkor’s waitlist to get notified at launch. Daily, weekly, monthly tournaments with prizes." />
+  <title>Tokkor — টুর্নামেন্ট। পুরস্কার। খুব শিগগিরই।</title>
+  <meta name="description" content="Tokkor লঞ্চ হলে নোটিফাই পেতে ওয়েটলিস্টে যোগ দিন। ডেইলি, উইকলি, মান্থলি টুর্নামেন্ট—রিয়েল পুরস্কারসহ।" />
   <meta property="og:title" content="Tokkor — Coming Soon" />
   <meta property="og:description" content="Join Tokkor’s waitlist to get notified at launch." />
   <meta property="og:type" content="website" />
   <meta property="og:image" content="/poster.jpg" />
   <meta name="theme-color" content="#0f172a" />
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='50' fill='%23000000'/%3E%3Ctext x='50' y='58' text-anchor='middle' font-family='Arial' font-size='52' fill='%23ffffff'%3ET%3C/text%3E%3C/svg%3E" />
-  <!-- Tailwind via CDN for quick styling; can be replaced with your own CSS later -->
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    /* Simple fade-in animation */
     .fade-in { animation: fadeIn 0.8s ease-out both; }
     @keyframes fadeIn { from { opacity: 0; transform: translateY(6px);} to { opacity: 1; transform: translateY(0);} }
-    /* Honeypot field hidden from users */
     .hp { position:absolute !important; left:-5000px !important; }
+    /* Toggle switch animation */
+    .switch { position: relative; width: 64px; height: 34px; }
+    .switch input { display:none; }
+    .slider { position:absolute; cursor:pointer; inset:0; background:#1f2937; border-radius:9999px; transition: background .25s ease; }
+    .slider:before { content:""; position:absolute; height:26px; width:26px; left:4px; top:4px; background:white; border-radius:9999px; transition: transform .25s ease; box-shadow: 0 4px 12px rgba(0,0,0,.25); }
+    input:checked + .slider { background:#6d28d9; }
+    input:checked + .slider:before { transform: translateX(30px); }
   </style>
 </head>
 <body class="min-h-screen bg-slate-950 text-white selection:bg-purple-500/30">
-  <main class="relative mx-auto max-w-5xl px-6 py-10 sm:py-14">
-    <!-- Header -->
+  <main class="relative mx-auto max-w-5xl px-6 py-6 sm:py-10">
+    <!-- Header with Lang Toggle + FAQ -->
+    <header class="flex items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <h1 id="brand" class="text-xl font-semibold tracking-tight">Tokkor</h1>
+        <span id="prelaunchBadge" class="text-xs text-slate-400">প্রি-লঞ্চ</span>
+      </div>
 
-
+      <div class="flex items-center gap-4">
+        <a id="faqBtn" href="/faq" class="text-sm text-slate-300 hover:text-white underline underline-offset-4">FAQ</a>
+        <label class="switch" aria-label="Language toggle">
+          <input id="langToggle" type="checkbox" aria-checked="false" />
+          <span class="slider"></span>
+        </label>
+        <span id="langLabel" class="text-xs text-slate-400 w-12 text-right">বাংলা</span>
+      </div>
+    </header>
 
     <!-- Hero -->
-    <section class="mt-10 grid items-center gap-8 lg:grid-cols-2">
+    <section class="mt-8 grid items-center gap-8 lg:grid-cols-2">
       <div class="fade-in">
-        <h2 class="text-3xl sm:text-4xl font-extrabold leading-tight">
-          Tournaments with real prizes —<br class="hidden sm:block" />
-          <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-fuchsia-400">launching soon.</span>
-        </h2>
-        <p class="mt-4 text-slate-300 max-w-prose">
-          Be first to know when Tokkor goes live. Enter your email and mobile number to join the waitlist and get early access rewards.
-        </p>
+        <h2 id="heroTitle" class="text-3xl sm:text-4xl font-extrabold leading-tight"></h2>
+        <p id="heroSub" class="mt-4 text-slate-300 max-w-prose"></p>
         <ul class="mt-4 text-slate-400 text-sm list-disc list-inside space-y-1">
-          <li>Daily, weekly, monthly leaderboards</li>
-          <li>Multiple hyper‑casual games</li>
-          <li>Exclusive beta invites for early sign‑ups</li>
+          <li id="b1"></li>
+          <li id="b2"></li>
+          <li id="b3"></li>
         </ul>
       </div>
 
       <!-- Poster -->
       <div class="fade-in order-first lg:order-none">
         <div class="overflow-hidden rounded-2xl ring-1 ring-white/10 shadow-2xl">
-          <img src="/rewards post - high risk.png" alt="Tokkor poster" class="w-full h-auto block" />
+          <img src="/rewards post - high risk.png" alt="Tokkor পোস্টার" class="w-full h-auto block" />
         </div>
       </div>
     </section>
@@ -55,38 +67,35 @@
     <!-- Signup Card -->
     <section class="mt-10">
       <div class="rounded-2xl border border-white/10 bg-white/5 p-6 sm:p-8 backdrop-blur">
-        <h3 class="text-xl font-semibold">Get notified at launch</h3>
-        <p class="text-sm text-slate-300 mt-1">No spam. Unsubscribe anytime.</p>
+        <h3 id="formTitle" class="text-xl font-semibold"></h3>
+        <p id="formSub" class="text-sm text-slate-300 mt-1"></p>
 
         <form id="waitlist-form" class="mt-5 grid gap-4 sm:grid-cols-2" novalidate>
-          <!-- Hidden honeypot -->
           <input type="text" name="company" class="hp" tabindex="-1" autocomplete="off" />
 
           <div class="sm:col-span-2">
-            <label class="block text-sm text-slate-300" for="name">Name (optional)</label>
-            <input id="name" name="name" type="text" inputmode="text" class="mt-1 w-full rounded-xl bg-slate-900/70 border border-white/10 px-4 py-3 outline-none focus:ring-2 focus:ring-purple-500" placeholder="Your name" />
+            <label id="nameLbl" class="block text-sm text-slate-300" for="name"></label>
+            <input id="name" name="name" type="text" inputmode="text" class="mt-1 w-full rounded-xl bg-slate-900/70 border border-white/10 px-4 py-3 outline-none focus:ring-2 focus:ring-purple-500" />
           </div>
 
           <div>
-            <label class="block text-sm text-slate-300" for="email">Email</label>
-            <input id="email" name="email" type="email" required autocomplete="email" class="mt-1 w-full rounded-xl bg-slate-900/70 border border-white/10 px-4 py-3 outline-none focus:ring-2 focus:ring-purple-500" placeholder="you@example.com" />
+            <label id="emailLbl" class="block text-sm text-slate-300" for="email"></label>
+            <input id="email" name="email" type="email" required autocomplete="email" class="mt-1 w-full rounded-xl bg-slate-900/70 border border-white/10 px-4 py-3 outline-none focus:ring-2 focus:ring-purple-500" />
           </div>
 
           <div>
-            <label class="block text-sm text-slate-300" for="phone">Mobile Number</label>
-            <input id="phone" name="phone" type="tel" required autocomplete="tel" class="mt-1 w-full rounded-xl bg-slate-900/70 border border-white/10 px-4 py-3 outline-none focus:ring-2 focus:ring-purple-500" placeholder="01XXXXXXXXX or +8801XXXXXXXXX" pattern="^(\+?8801[3-9]\d{8}|01[3-9]\d{8})$" />
-            <p class="text-xs text-slate-500 mt-1">Bangladesh format supported. International numbers okay if starting with <code>+880</code>.</p>
+            <label id="phoneLbl" class="block text-sm text-slate-300" for="phone"></label>
+            <input id="phone" name="phone" type="tel" required autocomplete="tel" class="mt-1 w-full rounded-xl bg-slate-900/70 border border-white/10 px-4 py-3 outline-none focus:ring-2 focus:ring-purple-500" pattern="^(\+?8801[3-9]\d{8}|01[3-9]\d{8})$" />
+            <p id="phoneHelp" class="text-xs text-slate-500 mt-1"></p>
           </div>
 
           <div class="sm:col-span-2 flex items-start gap-3">
             <input id="consent" name="consent" type="checkbox" required class="mt-1 h-4 w-4 rounded border-white/20 bg-slate-900/70" />
-            <label for="consent" class="text-sm text-slate-300">I agree to be contacted about Tokkor’s launch and related updates. <span class="text-slate-400">(You can unsubscribe anytime.)</span></label>
+            <label id="consentLbl" for="consent" class="text-sm text-slate-300"></label>
           </div>
 
           <div class="sm:col-span-2 flex flex-col sm:flex-row gap-3 items-center">
-            <button id="submitBtn" type="submit" class="inline-flex items-center justify-center rounded-xl bg-gradient-to-br from-purple-500 to-fuchsia-600 px-5 py-3 font-semibold shadow hover:brightness-110 focus:outline-none disabled:opacity-50">
-              Notify me
-            </button>
+            <button id="submitBtn" type="submit" class="inline-flex items-center justify-center rounded-xl bg-gradient-to-br from-purple-500 to-fuchsia-600 px-5 py-3 font-semibold shadow hover:brightness-110 focus:outline-none disabled:opacity-50"></button>
             <p id="formMsg" class="text-sm text-slate-400"></p>
           </div>
         </form>
@@ -95,79 +104,170 @@
 
     <!-- Footer -->
     <footer class="mt-12 border-t border-white/10 pt-6 text-xs text-slate-500 flex flex-col sm:flex-row gap-2 sm:items-center sm:justify-between">
-      <p>© <span id="year"></span> Tokkor. All rights reserved.</p>
-      <p>Questions? <a href="mailto:hello@yourdomain.com" class="underline hover:text-slate-300">hello@yourdomain.com</a></p>
+      <p>© <span id="year"></span> Tokkor. <span id="rights"></span></p>
+      <p><span id="contactQ"></span> <a href="mailto:hello@yourdomain.com" class="underline hover:text-slate-300">hello@yourdomain.com</a></p>
     </footer>
   </main>
 
   <script>
-  // ▼ PASTE your exact Web App "exec" URL here (must start with https://script.google.com/.../exec)
+  // ===== CONFIG: Google Apps Script endpoint =====
   const FORM_ENDPOINT = "https://script.google.com/macros/s/AKfycbxPTrhvv9pZCEEN0n2pu1jcQU7b9iOlsteTIIykeViZ8Ix4ifzuNNpW2V0QVSlOGDD0Mw/exec";
 
-  // Helper: URL-encode the form (prevents CORS preflight)
+  // ===== i18n copy =====
+  const COPY = {
+    bn: {
+      heroTitle: "রিয়েল পুরস্কারের টুর্নামেন্ট —<br class=\"hidden sm:block\" /> <span class=\"text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-fuchsia-400\">খুব শিগগিরই আসছে।</span>",
+      heroSub: "Tokkor লাইভ হলে প্রথমেই জানুন। ইমেইল আর মোবাইল নম্বর দিন—ওয়েটলিস্টে যোগ হলেই পাবেন আগাম সুবিধা।",
+      bullets: [
+        "ডেইলি, উইকলি, মান্থলি লিডারবোর্ড",
+        "একাধিক হাইপার-ক্যাজুয়াল গেম",
+        "আর্লি সাইন-আপের জন্য এক্সক্লুসিভ বেটা আমন্ত্রণ"
+      ],
+      formTitle: "লঞ্চ নোটিফিকেশন পান",
+      formSub: "স্প্যাম নয়। যেকোনো সময় আনসাবস্ক্রাইব করতে পারবেন।",
+      nameLbl: "নাম (ঐচ্ছিক)",
+      namePh: "আপনার নাম",
+      emailLbl: "ইমেইল",
+      emailPh: "you@example.com",
+      phoneLbl: "মোবাইল নম্বর",
+      phonePh: "01XXXXXXXXX বা +8801XXXXXXXXX",
+      phoneHelp: "বাংলাদেশ নম্বর সমর্থিত। আন্তর্জাতিক হলে +880 দিয়ে শুরু করুন।",
+      consentLbl: "Tokkor লঞ্চ ও আপডেট সম্পর্কে আমাকে যোগাযোগ করা যাবে। <span class=\"text-slate-400\">(যেকোনো সময় আনসাবস্ক্রাইব করতে পারবেন।)</span>",
+      submitLabel: "নোটিফাই করুন",
+      rights: "সর্বস্বত্ব সংরক্ষিত।",
+      contactQ: "প্রশ্ন?",
+      errors: {
+        both: "ইমেইল ও মোবাইল—দুটোই দিন।",
+        consent: "যোগাযোগের অনুমতি দিন।",
+        phone: "সঠিক মোবাইল নম্বর দিন (01XXXXXXXXX বা +8801XXXXXXXXX)",
+        network: "নেটওয়ার্ক সমস্যা — একটু পরে আবার চেষ্টা করুন।",
+        generic: "কিছু ভুল হয়েছে। আবার চেষ্টা করুন।",
+        success: "আপনি তালিকায় যুক্ত হয়েছেন! লঞ্চে ইমেইল/এসএমএস পাবেন।",
+        deduped: "আপনি আগে থেকেই তালিকায় আছেন — আপডেট জানানো হবে।"
+      }
+    },
+    en: {
+      heroTitle: "Tournaments with real prizes —<br class=\"hidden sm:block\" /> <span class=\"text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-fuchsia-400\">launching soon.</span>",
+      heroSub: "Be first to know when Tokkor goes live. Enter your email and mobile number to join the waitlist and get early access rewards.",
+      bullets: [
+        "Daily, weekly, monthly leaderboards",
+        "Multiple hyper-casual games",
+        "Exclusive beta invites for early sign-ups"
+      ],
+      formTitle: "Get notified at launch",
+      formSub: "No spam. Unsubscribe anytime.",
+      nameLbl: "Name (optional)",
+      namePh: "Your name",
+      emailLbl: "Email",
+      emailPh: "you@example.com",
+      phoneLbl: "Mobile Number",
+      phonePh: "01XXXXXXXXX or +8801XXXXXXXXX",
+      phoneHelp: "Bangladesh format supported. International numbers okay if starting with +880.",
+      consentLbl: "I agree to be contacted about Tokkor’s launch and related updates. <span class=\"text-slate-400\">(You can unsubscribe anytime.)</span>",
+      submitLabel: "Notify me",
+      rights: "All rights reserved.",
+      contactQ: "Questions?",
+      errors: {
+        both: "Please enter both email and mobile number.",
+        consent: "Please agree to be contacted.",
+        phone: "Please enter a valid Bangladeshi mobile (01XXXXXXXXX or +8801XXXXXXXXX).",
+        network: "Network error — please try again.",
+        generic: "Something went wrong. Please try again.",
+        success: "You’re on the list! We’ll notify you at launch.",
+        deduped: "You were already on the list — we’ll keep you posted!"
+      }
+    }
+  };
+
+  // ===== language init & render =====
+  const state = { lang: localStorage.getItem('tokkor_lang') || 'bn' };
+
+  function setCopy(lang) {
+    const T = COPY[lang];
+    document.documentElement.lang = (lang === 'bn') ? 'bn' : 'en';
+    document.getElementById('prelaunchBadge').textContent = (lang==='bn') ? 'প্রি-লঞ্চ' : 'Pre-launch';
+    document.getElementById('heroTitle').innerHTML = T.heroTitle;
+    document.getElementById('heroSub').textContent = T.heroSub;
+    document.getElementById('b1').textContent = T.bullets[0];
+    document.getElementById('b2').textContent = T.bullets[1];
+    document.getElementById('b3').textContent = T.bullets[2];
+    document.getElementById('formTitle').textContent = T.formTitle;
+    document.getElementById('formSub').textContent = T.formSub;
+    document.getElementById('nameLbl').textContent = T.nameLbl;
+    document.getElementById('name').placeholder = T.namePh;
+    document.getElementById('emailLbl').textContent = T.emailLbl;
+    document.getElementById('email').placeholder = T.emailPh;
+    document.getElementById('phoneLbl').textContent = T.phoneLbl;
+    document.getElementById('phone').placeholder = T.phonePh;
+    document.getElementById('phoneHelp').textContent = T.phoneHelp;
+    document.getElementById('consentLbl').innerHTML = T.consentLbl;
+    document.getElementById('submitBtn').textContent = T.submitLabel;
+    document.getElementById('rights').textContent = T.rights;
+    document.getElementById('contactQ').textContent = T.contactQ;
+    document.getElementById('langLabel').textContent = (lang==='bn') ? 'বাংলা' : 'English';
+    localStorage.setItem('tokkor_lang', lang);
+  }
+
+  // Helper for urlencoded submission
   const encodeForm = (obj) => new URLSearchParams(obj).toString();
 
   const form   = document.getElementById('waitlist-form');
   const msg    = document.getElementById('formMsg');
   const btn    = document.getElementById('submitBtn');
   const yearEl = document.getElementById('year');
+  const langToggle = document.getElementById('langToggle');
   yearEl.textContent = new Date().getFullYear();
+
+  // Initialize language
+  const startLang = (state.lang === 'en') ? 'en' : 'bn';
+  langToggle.checked = (startLang === 'en');
+  setCopy(startLang);
+
+  // Toggle handler
+  langToggle.addEventListener('change', () => {
+    const lang = langToggle.checked ? 'en' : 'bn';
+    setCopy(lang);
+  });
 
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
-
-    // Honeypot
-    if (form.company && form.company.value) return;
+    if (form.company && form.company.value) return; // honeypot
 
     const data = Object.fromEntries(new FormData(form).entries());
+    const lang = localStorage.getItem('tokkor_lang') || 'bn';
+    const T = COPY[lang];
 
-    // Basic checks
-    if (!data.email || !data.phone) {
-      msg.textContent = 'Please enter both email and mobile number.';
-      msg.className   = 'text-sm text-red-400'; return;
-    }
-    if (!form.consent.checked) {
-      msg.textContent = 'Please agree to be contacted.';
-      msg.className   = 'text-sm text-red-400'; return;
-    }
+    if (!data.email || !data.phone) { msg.textContent = T.errors.both; msg.className='text-sm text-red-400'; return; }
+    if (!form.consent.checked) { msg.textContent = T.errors.consent; msg.className='text-sm text-red-400'; return; }
 
     btn.disabled = true;
-    msg.textContent = 'Submitting…';
+    msg.textContent = (lang === 'bn') ? 'সাবমিট হচ্ছে…' : 'Submitting…';
     msg.className   = 'text-sm text-slate-400';
 
     try {
       const res = await fetch(FORM_ENDPOINT, {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: encodeForm(data)          // IMPORTANT: urlencoded, not JSON
-        // DO NOT add mode:"no-cors" — it will cause opaque responses
+        body: encodeForm(data)
       });
-
-      // Debug aid: if fetch didn't throw, log status/body to console
       const text = await res.text();
-      let out = {};
-      try { out = JSON.parse(text); } catch { /* keep empty */ }
-      console.log('POST status:', res.status, 'body:', text);
+      let out = {}; try { out = JSON.parse(text); } catch {}
 
       if (res.ok && out.ok) {
         form.reset();
-        msg.textContent = out.deduped
-          ? 'You were already on the list — we’ll keep you posted!'
-          : 'You’re on the list! We’ll notify you at launch.';
+        msg.textContent = out.deduped ? T.errors.deduped : T.errors.success;
         msg.className = 'text-sm text-green-400';
       } else {
-        msg.textContent = (out && out.error) ? out.error : 'Something went wrong. Please try again.';
+        msg.textContent = (out && out.error) ? out.error : T.errors.generic;
         msg.className = 'text-sm text-red-400';
       }
     } catch (err) {
-      console.error('Network error:', err);
-      msg.textContent = 'Network error — please try again.';
+      msg.textContent = T.errors.network;
       msg.className = 'text-sm text-red-400';
     } finally {
       btn.disabled = false;
     }
   });
-</script>
-
+  </script>
 </body>
 </html>
