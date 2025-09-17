@@ -110,14 +110,15 @@
   </main>
 
   <script>
-  // 1) Put your actual Web App URL here (ends with /exec)
-  const FORM_ENDPOINT = "https://script.googleusercontent.com/macros/echo?user_content_key=AehSKLjXRDJIxqffEhL-6oBEKR9FoChdenkMIPfI-zj9LOgzqmsPw0YEvPIR5R7Cd3mJJB3DWOrccWZPGK8ChFX-GItO_9XhJ-8_T7clPPQWIG1tIor4VhUM3BoGTX8Ur0ucNaSNCXb8D_exNlU59ieZjafVogq-1R59YmCAvJQfNVCrHGQkmjSnfvi1ft5EMW_AtTLx96lejqwjM2vI4DKe83dPGqsbqi43jKRGJVyKh5A11TCv0CxHM3C9hSS1GGhaLM_DhbnzX2FlGjnuNIYj0RMsTJ4DlqT8E1_H4l3q&lib=MA_CJG8zFK-Ci34Wzg9Z9xJBo7Bc0E35i/exec";
+  // ▼ PASTE your exact Web App "exec" URL here (must start with https://script.google.com/.../exec)
+  const FORM_ENDPOINT = "https://script.google.com/macros/s/AKfycbw6qdUC-konDSWKi6SKGzWXv9vQ_St--NM7q2jq8-I0YgQlaLBrCJTzdlrPUNj-vyBoYQ/exec";
 
-  function encodeForm(obj) { return new URLSearchParams(obj).toString(); }
+  // Helper: URL-encode the form (prevents CORS preflight)
+  const encodeForm = (obj) => new URLSearchParams(obj).toString();
 
-  const form = document.getElementById('waitlist-form');
-  const msg  = document.getElementById('formMsg');
-  const btn  = document.getElementById('submitBtn');
+  const form   = document.getElementById('waitlist-form');
+  const msg    = document.getElementById('formMsg');
+  const btn    = document.getElementById('submitBtn');
   const yearEl = document.getElementById('year');
   yearEl.textContent = new Date().getFullYear();
 
@@ -129,27 +130,33 @@
 
     const data = Object.fromEntries(new FormData(form).entries());
 
-    // Basic validation (keep your BD phone regex if you like)
+    // Basic checks
     if (!data.email || !data.phone) {
       msg.textContent = 'Please enter both email and mobile number.';
-      msg.className = 'text-sm text-red-400'; return;
+      msg.className   = 'text-sm text-red-400'; return;
     }
     if (!form.consent.checked) {
       msg.textContent = 'Please agree to be contacted.';
-      msg.className = 'text-sm text-red-400'; return;
+      msg.className   = 'text-sm text-red-400'; return;
     }
 
     btn.disabled = true;
-    msg.textContent = 'Submitting…'; msg.className = 'text-sm text-slate-400';
+    msg.textContent = 'Submitting…';
+    msg.className   = 'text-sm text-slate-400';
 
     try {
       const res = await fetch(FORM_ENDPOINT, {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: encodeForm(data) // <-- urlencoded, no preflight
+        body: encodeForm(data)          // IMPORTANT: urlencoded, not JSON
+        // DO NOT add mode:"no-cors" — it will cause opaque responses
       });
 
-      const out = await res.json().catch(() => ({}));
+      // Debug aid: if fetch didn't throw, log status/body to console
+      const text = await res.text();
+      let out = {};
+      try { out = JSON.parse(text); } catch { /* keep empty */ }
+      console.log('POST status:', res.status, 'body:', text);
 
       if (res.ok && out.ok) {
         form.reset();
@@ -161,7 +168,8 @@
         msg.textContent = (out && out.error) ? out.error : 'Something went wrong. Please try again.';
         msg.className = 'text-sm text-red-400';
       }
-    } catch {
+    } catch (err) {
+      console.error('Network error:', err);
       msg.textContent = 'Network error — please try again.';
       msg.className = 'text-sm text-red-400';
     } finally {
