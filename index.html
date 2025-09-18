@@ -27,15 +27,17 @@
 </head>
 <body class="min-h-screen bg-slate-950 text-white selection:bg-purple-500/30">
   <main class="relative mx-auto max-w-5xl px-6 py-6 sm:py-10">
-    <!-- Header with Lang Toggle + FAQ -->
+    <!-- Header: FAQ button left, Lang toggle right -->
     <header class="flex items-center justify-between gap-4">
-      <div class="flex items-center gap-3">
-        <h1 id="brand" class="text-xl font-semibold tracking-tight">Tokkor</h1>
-        <span id="prelaunchBadge" class="text-xs text-slate-400">প্রি-লঞ্চ</span>
+      <div>
+        <a href="/faq" class="inline-flex items-center gap-2 rounded-xl border border-white/15 bg-white/5 px-4 py-2 text-sm hover:bg-white/10 transition">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2a10 10 0 100 20 10 10 0 000-20zm.75 14.5h-1.5v-1.5h1.5v1.5zM13.5 8.25a1.5 1.5 0 10-3 0h-1.5a3 3 0 116 0c0 1.125-.75 1.838-1.62 2.483-.84.624-1.38 1.026-1.38 1.767v.25h-1.5v-.25c0-1.47 1.08-2.232 1.92-2.856.78-.582 1.08-.903 1.08-1.394z"/>
+          </svg>
+          <span id="faqLabel">FAQ</span>
+        </a>
       </div>
-
-      <div class="flex items-center gap-4">
-        <a id="faqBtn" href="/faq" class="text-sm text-slate-300 hover:text-white underline underline-offset-4">FAQ</a>
+      <div class="flex items-center gap-3">
         <label class="switch" aria-label="Language toggle">
           <input id="langToggle" type="checkbox" aria-checked="false" />
           <span class="slider"></span>
@@ -59,7 +61,7 @@
       <!-- Poster -->
       <div class="fade-in order-first lg:order-none">
         <div class="overflow-hidden rounded-2xl ring-1 ring-white/10 shadow-2xl">
-          <img src="/rewards post - high risk.png" alt="Tokkor পোস্টার" class="w-full h-auto block" />
+          <img src="/poster.jpg" alt="Tokkor পোস্টার" class="w-full h-auto block" />
         </div>
       </div>
     </section>
@@ -68,24 +70,29 @@
     <section class="mt-10">
       <div class="rounded-2xl border border-white/10 bg-white/5 p-6 sm:p-8 backdrop-blur">
         <h3 id="formTitle" class="text-xl font-semibold"></h3>
-        <p id="formSub" class="text-sm text-slate-300 mt-1"></p>
 
         <form id="waitlist-form" class="mt-5 grid gap-4 sm:grid-cols-2" novalidate>
+          <!-- Honeypot -->
           <input type="text" name="company" class="hp" tabindex="-1" autocomplete="off" />
 
           <div class="sm:col-span-2">
             <label id="nameLbl" class="block text-sm text-slate-300" for="name"></label>
-            <input id="name" name="name" type="text" inputmode="text" class="mt-1 w-full rounded-xl bg-slate-900/70 border border-white/10 px-4 py-3 outline-none focus:ring-2 focus:ring-purple-500" />
+            <input id="name" name="name" type="text" inputmode="text" required
+                   class="mt-1 w-full rounded-xl bg-slate-900/70 border border-white/10 px-4 py-3 outline-none focus:ring-2 focus:ring-purple-500" />
           </div>
 
           <div>
             <label id="emailLbl" class="block text-sm text-slate-300" for="email"></label>
-            <input id="email" name="email" type="email" required autocomplete="email" class="mt-1 w-full rounded-xl bg-slate-900/70 border border-white/10 px-4 py-3 outline-none focus:ring-2 focus:ring-purple-500" />
+            <input id="email" name="email" type="email" autocomplete="email"
+                   class="mt-1 w-full rounded-xl bg-slate-900/70 border border-white/10 px-4 py-3 outline-none focus:ring-2 focus:ring-purple-500" />
           </div>
 
           <div>
             <label id="phoneLbl" class="block text-sm text-slate-300" for="phone"></label>
-            <input id="phone" name="phone" type="tel" required autocomplete="tel" class="mt-1 w-full rounded-xl bg-slate-900/70 border border-white/10 px-4 py-3 outline-none focus:ring-2 focus:ring-purple-500" pattern="^(\+?8801[3-9]\d{8}|01[3-9]\d{8})$" />
+            <input id="phone" name="phone" type="tel" required autocomplete="tel"
+                   class="mt-1 w-full rounded-xl bg-slate-900/70 border border-white/10 px-4 py-3 outline-none focus:ring-2 focus:ring-purple-500"
+                   placeholder="01XXXXXXXXX"
+                   pattern="^(01[3-9]\d{8}|\+?8801[3-9]\d{8})$" />
             <p id="phoneHelp" class="text-xs text-slate-500 mt-1"></p>
           </div>
 
@@ -95,7 +102,8 @@
           </div>
 
           <div class="sm:col-span-2 flex flex-col sm:flex-row gap-3 items-center">
-            <button id="submitBtn" type="submit" class="inline-flex items-center justify-center rounded-xl bg-gradient-to-br from-purple-500 to-fuchsia-600 px-5 py-3 font-semibold shadow hover:brightness-110 focus:outline-none disabled:opacity-50"></button>
+            <button id="submitBtn" type="submit"
+                    class="inline-flex items-center justify-center rounded-xl bg-gradient-to-br from-purple-500 to-fuchsia-600 px-5 py-3 font-semibold shadow hover:brightness-110 focus:outline-none disabled:opacity-50"></button>
             <p id="formMsg" class="text-sm text-slate-400"></p>
           </div>
         </form>
@@ -104,8 +112,7 @@
 
     <!-- Footer -->
     <footer class="mt-12 border-t border-white/10 pt-6 text-xs text-slate-500 flex flex-col sm:flex-row gap-2 sm:items-center sm:justify-between">
-      <p>© <span id="year"></span> Tokkor. <span id="rights"></span></p>
-      <p><span id="contactQ"></span> <a href="mailto:hello@yourdomain.com" class="underline hover:text-slate-300">hello@yourdomain.com</a></p>
+      <p>© <span id="year"></span> Tokkor.</p>
     </footer>
   </main>
 
@@ -113,64 +120,60 @@
   // ===== CONFIG: Google Apps Script endpoint =====
   const FORM_ENDPOINT = "https://script.google.com/macros/s/AKfycbxPTrhvv9pZCEEN0n2pu1jcQU7b9iOlsteTIIykeViZ8Ix4ifzuNNpW2V0QVSlOGDD0Mw/exec";
 
-  // ===== i18n copy =====
+  // ===== i18n copy (Bangla default) =====
   const COPY = {
     bn: {
+      faq: "FAQ",
       heroTitle: "রিয়েল পুরস্কারের টুর্নামেন্ট —<br class=\"hidden sm:block\" /> <span class=\"text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-fuchsia-400\">খুব শিগগিরই আসছে।</span>",
-      heroSub: "Tokkor লাইভ হলে প্রথমেই জানুন। ইমেইল আর মোবাইল নম্বর দিন—ওয়েটলিস্টে যোগ হলেই পাবেন আগাম সুবিধা।",
+      heroSub: "Tokkor লাইভ হলে প্রথমেই জানুন। নাম ও মোবাইল নম্বর দিন—ওয়েটলিস্টে যোগ হলেই পাবেন আগাম সুবিধা।",
       bullets: [
         "ডেইলি, উইকলি, মান্থলি লিডারবোর্ড",
         "একাধিক হাইপার-ক্যাজুয়াল গেম",
         "আর্লি সাইন-আপের জন্য এক্সক্লুসিভ বেটা আমন্ত্রণ"
       ],
       formTitle: "লঞ্চ নোটিফিকেশন পান",
-      formSub: "স্প্যাম নয়। যেকোনো সময় আনসাবস্ক্রাইব করতে পারবেন।",
-      nameLbl: "নাম (ঐচ্ছিক)",
+      nameLbl: "নাম",
       namePh: "আপনার নাম",
-      emailLbl: "ইমেইল",
+      emailLbl: "ইমেইল (ঐচ্ছিক)",
       emailPh: "you@example.com",
       phoneLbl: "মোবাইল নম্বর",
-      phonePh: "01XXXXXXXXX বা +8801XXXXXXXXX",
+      phonePh: "01XXXXXXXXX",
       phoneHelp: "বাংলাদেশ নম্বর সমর্থিত। আন্তর্জাতিক হলে +880 দিয়ে শুরু করুন।",
-      consentLbl: "Tokkor লঞ্চ ও আপডেট সম্পর্কে আমাকে যোগাযোগ করা যাবে। <span class=\"text-slate-400\">(যেকোনো সময় আনসাবস্ক্রাইব করতে পারবেন।)</span>",
+      consentLbl: "Tokkor লঞ্চ ও আপডেট সম্পর্কে আমাকে যোগাযোগ করা যাবে।",
       submitLabel: "নোটিফাই করুন",
-      rights: "সর্বস্বত্ব সংরক্ষিত।",
-      contactQ: "প্রশ্ন?",
       errors: {
-        both: "ইমেইল ও মোবাইল—দুটোই দিন।",
+        name: "নাম দিন।",
+        phone: "সঠিক মোবাইল নম্বর দিন (01XXXXXXXXX)",
         consent: "যোগাযোগের অনুমতি দিন।",
-        phone: "সঠিক মোবাইল নম্বর দিন (01XXXXXXXXX বা +8801XXXXXXXXX)",
         network: "নেটওয়ার্ক সমস্যা — একটু পরে আবার চেষ্টা করুন।",
         generic: "কিছু ভুল হয়েছে। আবার চেষ্টা করুন।",
-        success: "আপনি তালিকায় যুক্ত হয়েছেন! লঞ্চে ইমেইল/এসএমএস পাবেন।",
+        success: "আপনি তালিকায় যুক্ত হয়েছেন! লঞ্চে আপডেট দেবো।",
         deduped: "আপনি আগে থেকেই তালিকায় আছেন — আপডেট জানানো হবে।"
       }
     },
     en: {
+      faq: "FAQ",
       heroTitle: "Tournaments with real prizes —<br class=\"hidden sm:block\" /> <span class=\"text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-fuchsia-400\">launching soon.</span>",
-      heroSub: "Be first to know when Tokkor goes live. Enter your email and mobile number to join the waitlist and get early access rewards.",
+      heroSub: "Be first to know when Tokkor goes live. Enter your name and mobile number to join the waitlist and get early access rewards.",
       bullets: [
         "Daily, weekly, monthly leaderboards",
         "Multiple hyper-casual games",
         "Exclusive beta invites for early sign-ups"
       ],
       formTitle: "Get notified at launch",
-      formSub: "No spam. Unsubscribe anytime.",
-      nameLbl: "Name (optional)",
+      nameLbl: "Name",
       namePh: "Your name",
-      emailLbl: "Email",
+      emailLbl: "Email (optional)",
       emailPh: "you@example.com",
       phoneLbl: "Mobile Number",
-      phonePh: "01XXXXXXXXX or +8801XXXXXXXXX",
+      phonePh: "01XXXXXXXXX",
       phoneHelp: "Bangladesh format supported. International numbers okay if starting with +880.",
-      consentLbl: "I agree to be contacted about Tokkor’s launch and related updates. <span class=\"text-slate-400\">(You can unsubscribe anytime.)</span>",
+      consentLbl: "I agree to be contacted about Tokkor’s launch and related updates.",
       submitLabel: "Notify me",
-      rights: "All rights reserved.",
-      contactQ: "Questions?",
       errors: {
-        both: "Please enter both email and mobile number.",
+        name: "Please enter your name.",
+        phone: "Please enter a valid Bangladeshi mobile (01XXXXXXXXX).",
         consent: "Please agree to be contacted.",
-        phone: "Please enter a valid Bangladeshi mobile (01XXXXXXXXX or +8801XXXXXXXXX).",
         network: "Network error — please try again.",
         generic: "Something went wrong. Please try again.",
         success: "You’re on the list! We’ll notify you at launch.",
@@ -179,20 +182,18 @@
     }
   };
 
-  // ===== language init & render =====
   const state = { lang: localStorage.getItem('tokkor_lang') || 'bn' };
 
   function setCopy(lang) {
     const T = COPY[lang];
     document.documentElement.lang = (lang === 'bn') ? 'bn' : 'en';
-    document.getElementById('prelaunchBadge').textContent = (lang==='bn') ? 'প্রি-লঞ্চ' : 'Pre-launch';
+    document.getElementById('faqLabel').textContent = T.faq;
     document.getElementById('heroTitle').innerHTML = T.heroTitle;
     document.getElementById('heroSub').textContent = T.heroSub;
     document.getElementById('b1').textContent = T.bullets[0];
     document.getElementById('b2').textContent = T.bullets[1];
     document.getElementById('b3').textContent = T.bullets[2];
     document.getElementById('formTitle').textContent = T.formTitle;
-    document.getElementById('formSub').textContent = T.formSub;
     document.getElementById('nameLbl').textContent = T.nameLbl;
     document.getElementById('name').placeholder = T.namePh;
     document.getElementById('emailLbl').textContent = T.emailLbl;
@@ -200,10 +201,8 @@
     document.getElementById('phoneLbl').textContent = T.phoneLbl;
     document.getElementById('phone').placeholder = T.phonePh;
     document.getElementById('phoneHelp').textContent = T.phoneHelp;
-    document.getElementById('consentLbl').innerHTML = T.consentLbl;
+    document.getElementById('consentLbl').textContent = T.consentLbl;
     document.getElementById('submitBtn').textContent = T.submitLabel;
-    document.getElementById('rights').textContent = T.rights;
-    document.getElementById('contactQ').textContent = T.contactQ;
     document.getElementById('langLabel').textContent = (lang==='bn') ? 'বাংলা' : 'English';
     localStorage.setItem('tokkor_lang', lang);
   }
@@ -218,7 +217,7 @@
   const langToggle = document.getElementById('langToggle');
   yearEl.textContent = new Date().getFullYear();
 
-  // Initialize language
+  // Initialize language (Bangla default)
   const startLang = (state.lang === 'en') ? 'en' : 'bn';
   langToggle.checked = (startLang === 'en');
   setCopy(startLang);
@@ -234,14 +233,15 @@
     if (form.company && form.company.value) return; // honeypot
 
     const data = Object.fromEntries(new FormData(form).entries());
-    const lang = localStorage.getItem('tokkor_lang') || 'bn';
-    const T = COPY[lang];
+    const T = COPY[localStorage.getItem('tokkor_lang') || 'bn'];
 
-    if (!data.email || !data.phone) { msg.textContent = T.errors.both; msg.className='text-sm text-red-400'; return; }
+    // Required: name, phone, consent (email optional)
+    if (!data.name)  { msg.textContent = T.errors.name;    msg.className='text-sm text-red-400'; return; }
+    if (!data.phone) { msg.textContent = T.errors.phone;   msg.className='text-sm text-red-400'; return; }
     if (!form.consent.checked) { msg.textContent = T.errors.consent; msg.className='text-sm text-red-400'; return; }
 
     btn.disabled = true;
-    msg.textContent = (lang === 'bn') ? 'সাবমিট হচ্ছে…' : 'Submitting…';
+    msg.textContent = (localStorage.getItem('tokkor_lang') === 'en') ? 'Submitting…' : 'সাবমিট হচ্ছে…';
     msg.className   = 'text-sm text-slate-400';
 
     try {
