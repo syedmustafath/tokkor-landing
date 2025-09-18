@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="bn">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Tokkor — FAQ</title>
+  <meta name="theme-color" content="#0f172a" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .switch { position: relative; width: 64px; height: 34px; }
+    .switch input { display:none; }
+    .slider { position:absolute; cursor:pointer; inset:0; background:#1f2937; border-radius:9999px; transition: background .25s ease; }
+    .slider:before { content:""; position:absolute; height:26px; width:26px; left:4px; top:4px; background:white; border-radius:9999px; transition: transform .25s ease; box-shadow: 0 4px 12px rgba(0,0,0,.25); }
+    input:checked + .slider { background:#6d28d9; }
+    input:checked + .slider:before { transform: translateX(30px); }
+  </style>
+</head>
+<body class="min-h-screen bg-slate-950 text-white">
+  <main class="relative mx-auto max-w-4xl px-6 py-6 sm:py-10">
+    <header class="flex items-center justify-between">
+      <a href="/" class="inline-flex items-center gap-2 rounded-xl border border-white/15 bg-white/5 px-4 py-2 text-sm hover:bg-white/10 transition">
+        ← <span id="backLabel">হোম</span>
+      </a>
+      <div class="flex items-center gap-3">
+        <label class="switch" aria-label="Language toggle">
+          <input id="langToggle" type="checkbox" aria-checked="false" />
+          <span class="slider"></span>
+        </label>
+        <span id="langLabel" class="text-xs text-slate-400 w-12 text-right">বাংলা</span>
+      </div>
+    </header>
+
+    <section class="mt-8 space-y-6">
+      <h1 id="title" class="text-3xl font-extrabold">FAQ</h1>
+      <div id="faqContent" class="prose prose-invert prose-slate max-w-none">
+        <!-- Injected by JS -->
+      </div>
+    </section>
+
+    <footer class="mt-12 border-t border-white/10 pt-6 text-xs text-slate-500">
+      <p>© <span id="year"></span> Tokkor.</p>
+    </footer>
+  </main>
+
+  <script>
+  const COPY = {
+    bn: {
+      back: "হোম",
+      title: "FAQ",
+      content: `
+<p><strong>প্রশ্ন: Tokkor কী?</strong><br/>
+Tokkor একটি গেমিং প্ল্যাটফর্ম যেখানে আপনি দৈনিক, সাপ্তাহিক ও মাসিক টুর্নামেন্টে অংশগ্রহণ করতে পারবেন। অন্যান্য খেলোয়াড়দের সাথে প্রতিযোগিতা করুন, লিডারবোর্ডে উঠুন এবং আকর্ষণীয় পুরস্কার জিতুন।</p>
+
+<p><strong>প্রশ্ন: টুর্নামেন্টে কীভাবে অংশগ্রহণ করবো?</strong><br/>
+Tokkor-এ সাইন আপ করুন, একটি গেম বেছে নিন এবং এন্ট্রি ফি প্রদান করে টুর্নামেন্টে যোগ দিন।</p>
+
+<p><strong>প্রশ্ন: কীভাবে জিতবো?</strong><br/>
+খেলোয়াড়দের র‌্যাঙ্ক নির্ধারণ করা হয় তাদের পারফরম্যান্সের ভিত্তিতে (যেমন সর্বোচ্চ স্কোর, দ্রুততম সময়, বা সর্বাধিক পয়েন্ট সংগ্রহ)। র‌্যাঙ্ক যত ভালো হবে, জেতার সম্ভাবনা তত বেশি।</p>
+
+<p><strong>প্রশ্ন: কী ধরনের পুরস্কার পাওয়া যাবে?</strong><br/>
+Tokkor টুর্নামেন্টে ক্যাশ রিওয়ার্ড ও এক্সক্লুসিভ গিফট উভয়ই থাকে। পুরস্কারের ধরন ও পরিমাণ টুর্নামেন্টভেদে ভিন্ন হবে।</p>
+
+<p><strong>প্রশ্ন: পুরস্কার কখন পাবো?</strong><br/>
+ফলাফল যাচাইয়ের পর সাধারণত ৭–১৪ কর্মদিবসের মধ্যে পুরস্কার বিতরণ করা হবে।</p>
+
+<p><strong>প্রশ্ন: সমান স্কোর হলে কী হবে?</strong><br/>
+যদি দুইজন খেলোয়াড়ের স্কোর সমান হয়, যিনি আগে স্কোর করেছেন তিনি উচ্চ র‌্যাঙ্কে থাকবেন।</p>
+
+<p><strong>প্রশ্ন: ইন্টারনেট কি লাগবে?</strong><br/>
+জি, টুর্নামেন্টে অংশ নিতে, স্কোর জমা দিতে ও প্রগ্রেস ট্র্যাক করতে ইন্টারনেট সংযোগ লাগবে।</p>
+
+<p><strong>প্রশ্ন: আমাকে কি বাতিল করা হতে পারে?</strong><br/>
+জি হ্যাঁ। প্রতারণা, অযৌক্তিক খেলা বা Tokkor-এর নিয়ম ভঙ্গ করলে অবিলম্বে অযোগ্য ঘোষণা করা হবে এবং প্রয়োজনে অ্যাকাউন্ট সাসপেন্ড হতে পারে।</p>
+
+<p><strong>জেতার শর্তাবলি (সাধারণ):</strong></p>
+<ul>
+  <li>টুর্নামেন্টে অংশগ্রহণের জন্য একটি বৈধ Tokkor একাউন্ট প্রয়োজন।</li>
+  <li>সব টুর্নামেন্ট শুধুমাত্র Paid Entry ভিত্তিক হবে; এন্ট্রি ফি টুর্নামেন্ট অনুযায়ী ভিন্ন হতে পারে।</li>
+  <li>প্রতিটি টুর্নামেন্ট নির্ধারিত সময়সীমার মধ্যে সম্পন্ন করতে হবে।</li>
+  <li>লিডারবোর্ডের র‌্যাঙ্ক অফিসিয়াল স্কোরিং নিয়ম অনুযায়ী নির্ধারিত হবে।</li>
+  <li>পুরস্কার শুধুমাত্র যাচাই-বাছাই শেষে বৈধ বিজয়ীদের দেয়া হবে।</li>
+  <li>একই টুর্নামেন্টে একজন ব্যবহারকারী একাধিক পুরস্কার দাবি করতে পারবেন না (যদি না আলাদাভাবে ঘোষণা থাকে)।</li>
+  <li>Tokkor যে কোনো সময় নিয়ম, পুরস্কারের কাঠামো বা শর্তাবলি পরিবর্তন করতে পারে।</li>
+</ul>
+      `
+    },
+    en: {
+      back: "Home",
+      title: "FAQ",
+      content: `
+<p><strong>Q. What is Tokkor?</strong><br/>
+Tokkor is a gaming platform where you can participate in daily, weekly, and monthly tournaments across multiple games. Compete with other players, climb the leaderboards, and win exciting prizes.</p>
+
+<p><strong>Q. How do I join a tournament?</strong><br/>
+Sign up on Tokkor, choose a game, and pay the entry fee to join an available tournament.</p>
+
+<p><strong>Q. How do I win?</strong><br/>
+Players are ranked on the leaderboard based on their performance (such as highest score, fastest completion, or accumulated points). The higher your rank, the better your chances of winning prizes.</p>
+
+<p><strong>Q. What kind of prizes can I win?</strong><br/>
+Tokkor tournaments feature both cash rewards and exclusive gifts. The prize type and value vary depending on the tournament.</p>
+
+<p><strong>Q. When will I get my prize?</strong><br/>
+Prizes are distributed within a set timeframe (generally 7–14 working days) after results are verified.</p>
+
+<p><strong>Q. What happens in case of a tie?</strong><br/>
+In case of identical scores or points, the player who achieved the score first will be ranked higher.</p>
+
+<p><strong>Q. Do I need internet access?</strong><br/>
+Yes, a stable internet connection is required to join tournaments, submit scores, and track your progress.</p>
+
+<p><strong>Q. Can I be disqualified?</strong><br/>
+Yes. Any fraudulent activity, unfair play, or violation of Tokkor’s terms will result in immediate disqualification and possible account suspension.</p>
+
+<p><strong>Terms & Conditions for Winning (General):</strong></p>
+<ul>
+  <li>A valid Tokkor account is required to participate.</li>
+  <li>All tournaments are paid-entry only; entry fees vary depending on the tournament.</li>
+  <li>All tournaments must be completed within their respective timelines.</li>
+  <li>Leaderboard ranking is determined based on official scoring rules.</li>
+  <li>Prizes will only be awarded to verified winners after fraud and eligibility checks.</li>
+  <li>A single user cannot claim multiple prizes from the same tournament unless explicitly stated.</li>
+  <li>Tokkor reserves the right to amend rules, prize structures, or conditions without prior notice.</li>
+</ul>
+      `
+    }
+  };
+
+  const state = { lang: localStorage.getItem('tokkor_lang') || 'bn' };
+
+  function render(lang) {
+    const T = COPY[lang];
+    document.documentElement.lang = (lang === 'bn') ? 'bn' : 'en';
+    document.getElementById('backLabel').textContent = T.back;
+    document.getElementById('title').textContent = T.title;
+    document.getElementById('faqContent').innerHTML = T.content;
+    document.getElementById('langLabel').textContent = (lang === 'bn') ? 'বাংলা' : 'English';
+    localStorage.setItem('tokkor_lang', lang);
+  }
+
+  const yearEl = document.getElementById('year');
+  const toggle = document.getElementById('langToggle');
+  const startLang = (state.lang === 'en') ? 'en' : 'bn';
+  toggle.checked = (startLang === 'en');
+  render(startLang);
+  yearEl.textContent = new Date().getFullYear();
+
+  toggle.addEventListener('change', () => {
+    render(toggle.checked ? 'en' : 'bn');
+  });
+  </script>
+</body>
+</html>
