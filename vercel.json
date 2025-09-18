@@ -1,5 +1,0 @@
-{
-  "rewrites": [
-    { "source": "/api/join", "destination": "https://script.google.com/macros/s/https://script.google.com/macros/s/AKfycbzqoUfJiBLtxJrogqFnffU9RnvobYNGEE0IdWv0hgpbz9jtaIoTkGWqXrvhrBBQscOifA/exec" }
-  ]
-}
