@@ -141,6 +141,7 @@
       phoneHelp: "বাংলাদেশ নম্বর সমর্থিত। আন্তর্জাতিক হলে +880 দিয়ে শুরু করুন।",
       consentLbl: "Tokkor লঞ্চ ও আপডেট সম্পর্কে আমাকে যোগাযোগ করা যাবে।",
       submitLabel: "নোটিফাই করুন",
+      tg: "টেলিগ্রাম চ্যানেলে যোগ দিন",
       errors: {
         name: "নাম দিন।",
         phone: "সঠিক মোবাইল নম্বর দিন (01XXXXXXXXX)",
@@ -170,6 +171,7 @@
       phoneHelp: "Bangladesh format supported. International numbers okay if starting with +880.",
       consentLbl: "I agree to be contacted about Tokkor’s launch and related updates.",
       submitLabel: "Notify me",
+      tg: "Join our Telegram channel",
       errors: {
         name: "Please enter your name.",
         phone: "Please enter a valid Bangladeshi mobile (01XXXXXXXXX).",
@@ -204,6 +206,13 @@
     document.getElementById('consentLbl').textContent = T.consentLbl;
     document.getElementById('submitBtn').textContent = T.submitLabel;
     document.getElementById('langLabel').textContent = (lang==='bn') ? 'বাংলা' : 'English';
+    localStorage.setItem('tokkor_lang', lang);
+    const tgLabel = document.getElementById('tgLabel');
+    if (tgLabel) tgLabel.textContent = T.tg;
+    const tgBtn = document.getElementById('tgBtn');
+    if (tgBtn) tgBtn.setAttribute('aria-label', T.tg);
+
+    document.getElementById('langLabel').textContent = (lang === 'bn') ? 'বাংলা' : 'English';
     localStorage.setItem('tokkor_lang', lang);
   }
 
