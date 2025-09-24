@@ -16,6 +16,7 @@
     .fade-in { animation: fadeIn 0.8s ease-out both; }
     @keyframes fadeIn { from { opacity: 0; transform: translateY(6px);} to { opacity: 1; transform: translateY(0);} }
     .hp { position:absolute !important; left:-5000px !important; }
+    /* Toggle switch animation */
     .switch { position: relative; width: 64px; height: 34px; }
     .switch input { display:none; }
     .slider { position:absolute; cursor:pointer; inset:0; background:#1f2937; border-radius:9999px; transition: background .25s ease; }
@@ -116,8 +117,10 @@
   </main>
 
   <script>
+  // ===== CONFIG: Google Apps Script endpoint =====
   const FORM_ENDPOINT = "https://script.google.com/macros/s/AKfycbwaPA7kBif877iZUfbWCds2MKhgQwRcKAIzrK_9smqA3ftXt1pN6NO1S0gRBldlwB6OKA/exec";
 
+  // ===== i18n copy (Bangla default) =====
   const COPY = {
     bn: {
       faq: "FAQ",
@@ -204,6 +207,7 @@
     localStorage.setItem('tokkor_lang', lang);
   }
 
+  // Helper for urlencoded submission
   const encodeForm = (obj) => new URLSearchParams(obj).toString();
 
   const form   = document.getElementById('waitlist-form');
@@ -213,10 +217,12 @@
   const langToggle = document.getElementById('langToggle');
   yearEl.textContent = new Date().getFullYear();
 
+  // Initialize language (Bangla default)
   const startLang = (state.lang === 'en') ? 'en' : 'bn';
   langToggle.checked = (startLang === 'en');
   setCopy(startLang);
 
+  // Toggle handler
   langToggle.addEventListener('change', () => {
     const lang = langToggle.checked ? 'en' : 'bn';
     setCopy(lang);
@@ -224,11 +230,12 @@
 
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
-    if (form.company && form.company.value) return;
+    if (form.company && form.company.value) return; // honeypot
 
     const data = Object.fromEntries(new FormData(form).entries());
     const T = COPY[localStorage.getItem('tokkor_lang') || 'bn'];
 
+    // Required: name, phone, consent (email optional)
     if (!data.name)  { msg.textContent = T.errors.name;    msg.className='text-sm text-red-400'; return; }
     if (!data.phone) { msg.textContent = T.errors.phone;   msg.className='text-sm text-red-400'; return; }
     if (!form.consent.checked) { msg.textContent = T.errors.consent; msg.className='text-sm text-red-400'; return; }
@@ -244,4 +251,40 @@
         body: encodeForm(data)
       });
       const text = await res.text();
-      let out = {}; try { out = JSON.parse(text); } catch
+      let out = {}; try { out = JSON.parse(text); } catch {}
+
+      if (res.ok && out.ok) {
+        form.reset();
+        msg.textContent = out.deduped ? T.errors.deduped : T.errors.success;
+        msg.className = 'text-sm text-green-400';
+      } else {
+        msg.textContent = (out && out.error) ? out.error : T.errors.generic;
+        msg.className = 'text-sm text-red-400';
+      }
+    } catch (err) {
+      msg.textContent = T.errors.network;
+      msg.className = 'text-sm text-red-400';
+    } finally {
+      btn.disabled = false;
+    }
+  });
+  </script>
+
+     setCopy('bn');
+    langToggle.addEventListener('change', () => setCopy(langToggle.checked ? 'en' : 'bn'));
+  </script>
+
+<!-- Telegram Floating Button -->
+<a href="https://t.me/tokkorgg" target="_blank" rel="noopener"
+   class="fixed bottom-6 right-6 bg-sky-500 hover:bg-sky-600 text-white px-4 py-3 rounded-full shadow-lg transition flex items-center gap-2"
+   aria-label="Join our Telegram channel">
+  <!-- Telegram SVG Icon -->
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" class="h-5 w-5 fill-current">
+    <path d="M120 0a120 120 0 1 0 0 240 120 120 0 0 0 0-240Zm55.9 77.6-21 98.6c-1.6 7-6 8.7-12.2 5.4l-33.8-24.9-16.3 15.7c-1.8 1.8-3.3 3.3-6.7 3.3l2.4-34.3 62.5-56.5c2.7-2.4-0.6-3.8-4.2-1.4l-77.2 48.6-33.3-10.4c-7.2-2.2-7.3-7.2 1.6-10.6l130.3-50.3c6.1-2.2 11.5 1.4 9.5 10.4Z"/>
+  </svg>
+  <span id="tgLabel" class="whitespace-nowrap text-sm font-medium">Join our Telegram channel</span>
+</a>
+
+
+</body>
+</html>
