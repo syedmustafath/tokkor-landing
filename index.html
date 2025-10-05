@@ -13,10 +13,9 @@
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='50' fill='%23000000'/%3E%3Ctext x='50' y='58' text-anchor='middle' font-family='Arial' font-size='52' fill='%23ffffff'%3ET%3C/text%3E%3C/svg%3E" />
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    .fade-in { animation: fadeIn 0.6s ease-out both; }
+    .fade-in { animation: fadeIn 0.8s ease-out both; }
     @keyframes fadeIn { from { opacity: 0; transform: translateY(6px);} to { opacity: 1; transform: translateY(0);} }
     .hp { position:absolute !important; left:-5000px !important; }
-    /* Toggle switch */
     .switch { position: relative; width: 64px; height: 34px; }
     .switch input { display:none; }
     .slider { position:absolute; cursor:pointer; inset:0; background:#1f2937; border-radius:9999px; transition: background .25s ease; }
@@ -26,15 +25,17 @@
   </style>
 </head>
 <body class="min-h-screen bg-slate-950 text-white selection:bg-purple-500/30">
-  <main class="relative mx-auto max-w-xl sm:max-w-2xl px-5 py-5">
-    <!-- Header: FAQ left, Language toggle right -->
-    <header class="flex items-center justify-between">
-      <a href="/faq.html" class="inline-flex items-center gap-2 rounded-xl border border-white/15 bg-white/5 px-4 py-2 text-sm hover:bg-white/10 transition">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor">
-          <path d="M12 2a10 10 0 100 20 10 10 0 000-20zm.75 14.5h-1.5v-1.5h1.5v1.5zM13.5 8.25a1.5 1.5 0 10-3 0h-1.5a3 3 0 116 0c0 1.125-.75 1.838-1.62 2.483-.84.624-1.38 1.026-1.38 1.767v.25h-1.5v-.25c0-1.47 1.08-2.232 1.92-2.856.78-.582 1.08-.903 1.08-1.394z"/>
-        </svg>
-        <span id="faqLabel">FAQ</span>
-      </a>
+  <main class="relative mx-auto max-w-5xl px-6 py-6 sm:py-10">
+    <!-- Header: FAQ button left, Lang toggle right -->
+    <header class="flex items-center justify-between gap-4">
+      <div>
+        <a href="/faq.html" class="inline-flex items-center gap-2 rounded-xl border border-white/15 bg-white/5 px-4 py-2 text-sm hover:bg-white/10 transition">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2a10 10 0 100 20 10 10 0 000-20zm.75 14.5h-1.5v-1.5h1.5v1.5zM13.5 8.25a1.5 1.5 0 10-3 0h-1.5a3 3 0 116 0c0 1.125-.75 1.838-1.62 2.483-.84.624-1.38 1.026-1.38 1.767v.25h-1.5v-.25c0-1.47 1.08-2.232 1.92-2.856.78-.582 1.08-.903 1.08-1.394z"/>
+          </svg>
+          <span id="faqLabel">FAQ</span>
+        </a>
+      </div>
       <div class="flex items-center gap-3">
         <label class="switch" aria-label="Language toggle">
           <input id="langToggle" type="checkbox" aria-checked="false" />
@@ -44,95 +45,89 @@
       </div>
     </header>
 
-    <!-- FORM FIRST (above the fold on mobile) -->
-    <section class="mt-6 fade-in">
-      <h1 id="heroTitle" class="text-2xl font-extrabold leading-snug"></h1>
-      <p id="heroSub" class="mt-2 text-slate-300"></p>
-
-      <div class="mt-4 rounded-2xl border border-white/10 bg-white/5 p-4 sm:p-6 backdrop-blur">
-        <h3 id="formTitle" class="text-lg font-semibold"></h3>
-
-        <form id="waitlist-form" class="mt-4 grid gap-3" novalidate>
-          <!-- Honeypot -->
-          <input type="text" name="company" class="hp" tabindex="-1" autocomplete="off" />
-
-          <div>
-            <label id="nameLbl" class="block text-sm text-slate-300" for="name"></label>
-            <input id="name" name="name" type="text" required
-                   class="mt-1 w-full rounded-xl bg-slate-900/70 border border-white/10 px-4 py-3 outline-none focus:ring-2 focus:ring-purple-500"
-                   placeholder="Your name" />
-          </div>
-
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            <div>
-              <label id="emailLbl" class="block text-sm text-slate-300" for="email"></label>
-              <input id="email" name="email" type="email" autocomplete="email"
-                     class="mt-1 w-full rounded-xl bg-slate-900/70 border border-white/10 px-4 py-3 outline-none focus:ring-2 focus:ring-purple-500"
-                     placeholder="you@example.com" />
-            </div>
-            <div>
-              <label id="phoneLbl" class="block text-sm text-slate-300" for="phone"></label>
-              <input id="phone" name="phone" type="tel" required
-                     class="mt-1 w-full rounded-xl bg-slate-900/70 border border-white/10 px-4 py-3 outline-none focus:ring-2 focus:ring-purple-500"
-                     placeholder="01XXXXXXXXX"
-                     pattern="^(01[3-9]\\d{8}|\\+?8801[3-9]\\d{8})$" />
-              <p id="phoneHelp" class="text-xs text-slate-500 mt-1"></p>
-            </div>
-          </div>
-
-          <label class="mt-1 inline-flex items-start gap-3">
-            <input id="consent" name="consent" type="checkbox" required class="mt-1 h-4 w-4 rounded border-white/20 bg-slate-900/70" />
-            <span id="consentLbl" class="text-sm text-slate-300"></span>
-          </label>
-
-          <button id="submitBtn" type="submit"
-                  class="mt-1 inline-flex w-full items-center justify-center rounded-xl bg-gradient-to-br from-purple-500 to-fuchsia-600 px-5 py-3 text-base font-semibold shadow hover:brightness-110 focus:outline-none disabled:opacity-50">
-          </button>
-          <p id="formMsg" class="text-sm text-slate-400 text-center"></p>
-        </form>
-
-        <!-- Quick benefits (small, conversion friendly) -->
-        <ul class="mt-4 text-slate-400 text-xs list-disc list-inside space-y-1">
+    <!-- Hero -->
+    <section class="mt-8 grid items-center gap-8 lg:grid-cols-2">
+      <div class="fade-in">
+        <h2 id="heroTitle" class="text-3xl sm:text-4xl font-extrabold leading-tight"></h2>
+        <p id="heroSub" class="mt-4 text-slate-300 max-w-prose"></p>
+        <ul class="mt-4 text-slate-400 text-sm list-disc list-inside space-y-1">
           <li id="b1"></li>
           <li id="b2"></li>
           <li id="b3"></li>
         </ul>
       </div>
+
+      <!-- Poster -->
+      <div class="fade-in order-first lg:order-none">
+        <div class="overflow-hidden rounded-2xl ring-1 ring-white/10 shadow-2xl">
+          <img src="/rewards post - high risk.png" alt="Tokkor পোস্টার" class="w-full h-auto block" />
+        </div>
+      </div>
     </section>
 
-    <!-- IMAGE SECOND (below the fold) -->
-    <section class="mt-8 fade-in">
-      <div class="overflow-hidden rounded-2xl ring-1 ring-white/10 shadow-2xl">
-        <img src="/poster.jpg" alt="Tokkor পোস্টার" class="w-full h-auto block" />
+    <!-- Signup Card -->
+    <section class="mt-10">
+      <div class="rounded-2xl border border-white/10 bg-white/5 p-6 sm:p-8 backdrop-blur">
+        <h3 id="formTitle" class="text-xl font-semibold"></h3>
+
+        <form id="waitlist-form" class="mt-5 grid gap-4 sm:grid-cols-2" novalidate>
+          <!-- Honeypot -->
+          <input type="text" name="company" class="hp" tabindex="-1" autocomplete="off" />
+
+          <div class="sm:col-span-2">
+            <label id="nameLbl" class="block text-sm text-slate-300" for="name"></label>
+            <input id="name" name="name" type="text" inputmode="text" required
+                   class="mt-1 w-full rounded-xl bg-slate-900/70 border border-white/10 px-4 py-3 outline-none focus:ring-2 focus:ring-purple-500" />
+          </div>
+
+          <div>
+            <label id="emailLbl" class="block text-sm text-slate-300" for="email"></label>
+            <input id="email" name="email" type="email" autocomplete="email"
+                   class="mt-1 w-full rounded-xl bg-slate-900/70 border border-white/10 px-4 py-3 outline-none focus:ring-2 focus:ring-purple-500" />
+          </div>
+
+          <div>
+            <label id="phoneLbl" class="block text-sm text-slate-300" for="phone"></label>
+            <input id="phone" name="phone" type="tel" required autocomplete="tel"
+                   class="mt-1 w-full rounded-xl bg-slate-900/70 border border-white/10 px-4 py-3 outline-none focus:ring-2 focus:ring-purple-500"
+                   placeholder="01XXXXXXXXX"
+                   pattern="^(01[3-9]\d{8}|\+?8801[3-9]\d{8})$" />
+            <p id="phoneHelp" class="text-xs text-slate-500 mt-1"></p>
+          </div>
+
+          <div class="sm:col-span-2 flex items-start gap-3">
+            <input id="consent" name="consent" type="checkbox" required class="mt-1 h-4 w-4 rounded border-white/20 bg-slate-900/70" />
+            <label id="consentLbl" for="consent" class="text-sm text-slate-300"></label>
+          </div>
+
+          <div class="sm:col-span-2 flex flex-col sm:flex-row gap-3 items-center">
+            <button id="submitBtn" type="submit"
+                    class="inline-flex items-center justify-center rounded-xl bg-gradient-to-br from-purple-500 to-fuchsia-600 px-5 py-3 font-semibold shadow hover:brightness-110 focus:outline-none disabled:opacity-50"></button>
+            <p id="formMsg" class="text-sm text-slate-400"></p>
+          </div>
+        </form>
       </div>
     </section>
 
     <!-- Footer -->
-    <footer class="mt-10 border-t border-white/10 pt-6 text-xs text-slate-500">
+    <footer class="mt-12 border-t border-white/10 pt-6 text-xs text-slate-500 flex flex-col sm:flex-row gap-2 sm:items-center sm:justify-between">
       <p>© <span id="year"></span> Tokkor.</p>
     </footer>
   </main>
 
-  <!-- Telegram Floating Button (bottom-right) -->
-  <a id="tgBtn" href="https://t.me/tokkorgg" target="_blank" rel="noopener"
-     class="fixed bottom-6 right-6 bg-sky-500 hover:bg-sky-600 text-white px-4 py-3 rounded-full shadow-lg transition flex items-center gap-2"
-     aria-label="টেলিগ্রাম চ্যানেলে যোগ দিন">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" class="h-5 w-5 fill-current">
-      <path d="M120 0a120 120 0 1 0 0 240 120 120 0 0 0 0-240Zm55.9 77.6-21 98.6c-1.6 7-6 8.7-12.2 5.4l-33.8-24.9-16.3 15.7c-1.8 1.8-3.3 3.3-6.7 3.3l2.4-34.3 62.5-56.5c2.7-2.4-0.6-3.8-4.2-1.4l-77.2 48.6-33.3-10.4c-7.2-2.2-7.3-7.2 1.6-10.6l130.3-50.3c6.1-2.2 11.5 1.4 9.5 10.4Z"/>
-    </svg>
-    <span id="tgLabel" class="whitespace-nowrap text-sm font-medium">টেলিগ্রাম চ্যানেলে যোগ দিন</span>
-  </a>
-
   <script>
-  // ===== CONFIG: Apps Script endpoint =====
   const FORM_ENDPOINT = "https://script.google.com/macros/s/AKfycbwaPA7kBif877iZUfbWCds2MKhgQwRcKAIzrK_9smqA3ftXt1pN6NO1S0gRBldlwB6OKA/exec";
 
-  // ===== Copy (BN default) =====
   const COPY = {
     bn: {
       faq: "FAQ",
-      heroTitle: "রিয়েল পুরস্কারের টুর্নামেন্ট — <span class=\"text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-fuchsia-400\">খুব শিগগিরই আসছে।</span>",
-      heroSub: "প্রথমেই জানুন—নাম ও মোবাইল নম্বর দিন, ওয়েটলিস্টে যোগ দিন।",
+      heroTitle: "রিয়েল পুরস্কারের টুর্নামেন্ট —<br class=\"hidden sm:block\" /> <span class=\"text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-fuchsia-400\">খুব শিগগিরই আসছে।</span>",
+      heroSub: "Tokkor লাইভ হলে প্রথমেই জানুন। নাম ও মোবাইল নম্বর দিন—ওয়েটলিস্টে যোগ হলেই পাবেন আগাম সুবিধা।",
+      bullets: [
+        "ডেইলি, উইকলি, মান্থলি লিডারবোর্ড",
+        "একাধিক হাইপার-ক্যাজুয়াল গেম",
+        "আর্লি সাইন-আপের জন্য এক্সক্লুসিভ বেটা আমন্ত্রণ"
+      ],
       formTitle: "লঞ্চ নোটিফিকেশন পান",
       nameLbl: "নাম",
       namePh: "আপনার নাম",
@@ -143,26 +138,25 @@
       phoneHelp: "বাংলাদেশ নম্বর সমর্থিত। আন্তর্জাতিক হলে +880 দিয়ে শুরু করুন।",
       consentLbl: "Tokkor লঞ্চ ও আপডেট সম্পর্কে আমাকে যোগাযোগ করা যাবে।",
       submitLabel: "নোটিফাই করুন",
-      tg: "টেলিগ্রাম চ্যানেলে যোগ দিন",
-      bullets: [
-        "ডেইলি, উইকলি, মান্থলি লিডারবোর্ড",
-        "একাধিক হাইপার-ক্যাজুয়াল গেম",
-        "আর্লি সাইন-আপে বিশেষ সুবিধা"
-      ],
       errors: {
         name: "নাম দিন।",
-        phone: "সঠিক মোবাইল নম্বর দিন (01XXXXXXXXX)।",
+        phone: "সঠিক মোবাইল নম্বর দিন (01XXXXXXXXX)",
         consent: "যোগাযোগের অনুমতি দিন।",
-        network: "নেটওয়ার্ক সমস্যা — একটু পরে চেষ্টা করুন।",
-        generic: "কিছু ভুল হয়েছে — আবার চেষ্টা করুন।",
-        success: "তালিকায় যুক্ত হয়েছেন! লঞ্চে আপডেট দেবো।",
+        network: "নেটওয়ার্ক সমস্যা — একটু পরে আবার চেষ্টা করুন।",
+        generic: "কিছু ভুল হয়েছে। আবার চেষ্টা করুন।",
+        success: "আপনি তালিকায় যুক্ত হয়েছেন! লঞ্চে আপডেট দেবো।",
         deduped: "আপনি আগে থেকেই তালিকায় আছেন — আপডেট জানানো হবে।"
       }
     },
     en: {
       faq: "FAQ",
-      heroTitle: "Tournaments with real prizes — <span class=\"text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-fuchsia-400\">launching soon.</span>",
-      heroSub: "Be first to know. Enter your name and mobile number to join the waitlist.",
+      heroTitle: "Tournaments with real prizes —<br class=\"hidden sm:block\" /> <span class=\"text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-fuchsia-400\">launching soon.</span>",
+      heroSub: "Be first to know when Tokkor goes live. Enter your name and mobile number to join the waitlist and get early access rewards.",
+      bullets: [
+        "Daily, weekly, monthly leaderboards",
+        "Multiple hyper-casual games",
+        "Exclusive beta invites for early sign-ups"
+      ],
       formTitle: "Get notified at launch",
       nameLbl: "Name",
       namePh: "Your name",
@@ -170,38 +164,32 @@
       emailPh: "you@example.com",
       phoneLbl: "Mobile Number",
       phonePh: "01XXXXXXXXX",
-      phoneHelp: "Bangladesh format supported. International numbers OK if starting with +880.",
+      phoneHelp: "Bangladesh format supported. International numbers okay if starting with +880.",
       consentLbl: "I agree to be contacted about Tokkor’s launch and related updates.",
       submitLabel: "Notify me",
-      tg: "Join our Telegram channel",
-      bullets: [
-        "Daily, weekly, monthly leaderboards",
-        "Multiple hyper-casual games",
-        "Early sign-up perks"
-      ],
       errors: {
         name: "Please enter your name.",
         phone: "Please enter a valid Bangladeshi mobile (01XXXXXXXXX).",
         consent: "Please agree to be contacted.",
         network: "Network error — please try again.",
-        generic: "Something went wrong — please try again.",
+        generic: "Something went wrong. Please try again.",
         success: "You’re on the list! We’ll notify you at launch.",
         deduped: "You were already on the list — we’ll keep you posted!"
       }
     }
   };
 
-  // ===== Page wiring =====
   const state = { lang: localStorage.getItem('tokkor_lang') || 'bn' };
 
   function setCopy(lang) {
     const T = COPY[lang];
     document.documentElement.lang = (lang === 'bn') ? 'bn' : 'en';
-
     document.getElementById('faqLabel').textContent = T.faq;
     document.getElementById('heroTitle').innerHTML = T.heroTitle;
     document.getElementById('heroSub').textContent = T.heroSub;
-
+    document.getElementById('b1').textContent = T.bullets[0];
+    document.getElementById('b2').textContent = T.bullets[1];
+    document.getElementById('b3').textContent = T.bullets[2];
     document.getElementById('formTitle').textContent = T.formTitle;
     document.getElementById('nameLbl').textContent = T.nameLbl;
     document.getElementById('name').placeholder = T.namePh;
@@ -212,17 +200,7 @@
     document.getElementById('phoneHelp').textContent = T.phoneHelp;
     document.getElementById('consentLbl').textContent = T.consentLbl;
     document.getElementById('submitBtn').textContent = T.submitLabel;
-
-    document.getElementById('b1').textContent = T.bullets[0];
-    document.getElementById('b2').textContent = T.bullets[1];
-    document.getElementById('b3').textContent = T.bullets[2];
-
-    const tgLabel = document.getElementById('tgLabel');
-    if (tgLabel) tgLabel.textContent = T.tg;
-    const tgBtn = document.getElementById('tgBtn');
-    if (tgBtn) tgBtn.setAttribute('aria-label', T.tg);
-
-    document.getElementById('langLabel').textContent = (lang === 'bn') ? 'বাংলা' : 'English';
+    document.getElementById('langLabel').textContent = (lang==='bn') ? 'বাংলা' : 'English';
     localStorage.setItem('tokkor_lang', lang);
   }
 
@@ -235,7 +213,6 @@
   const langToggle = document.getElementById('langToggle');
   yearEl.textContent = new Date().getFullYear();
 
-  // Init language (BN default)
   const startLang = (state.lang === 'en') ? 'en' : 'bn';
   langToggle.checked = (startLang === 'en');
   setCopy(startLang);
@@ -245,23 +222,20 @@
     setCopy(lang);
   });
 
-  // Submit handler (name + phone + consent required; email optional)
-  const FORM_ENDPOINT = "https://script.google.com/macros/s/AKfycbwaPA7kBif877iZUfbWCds2MKhgQwRcKAIzrK_9smqA3ftXt1pN6NO1S0gRBldlwB6OKA/exec";
-
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
-    if (form.company && form.company.value) return; // honeypot
+    if (form.company && form.company.value) return;
 
     const data = Object.fromEntries(new FormData(form).entries());
     const T = COPY[localStorage.getItem('tokkor_lang') || 'bn'];
 
-    if (!data.name)  { msg.textContent = T.errors.name;    msg.className='text-sm text-red-400 text-center'; return; }
-    if (!data.phone) { msg.textContent = T.errors.phone;   msg.className='text-sm text-red-400 text-center'; return; }
-    if (!form.consent.checked) { msg.textContent = T.errors.consent; msg.className='text-sm text-red-400 text-center'; return; }
+    if (!data.name)  { msg.textContent = T.errors.name;    msg.className='text-sm text-red-400'; return; }
+    if (!data.phone) { msg.textContent = T.errors.phone;   msg.className='text-sm text-red-400'; return; }
+    if (!form.consent.checked) { msg.textContent = T.errors.consent; msg.className='text-sm text-red-400'; return; }
 
     btn.disabled = true;
-    msg.textContent = (state.lang === 'en') ? 'Submitting…' : 'সাবমিট হচ্ছে…';
-    msg.className   = 'text-sm text-slate-400 text-center';
+    msg.textContent = (localStorage.getItem('tokkor_lang') === 'en') ? 'Submitting…' : 'সাবমিট হচ্ছে…';
+    msg.className   = 'text-sm text-slate-400';
 
     try {
       const res = await fetch(FORM_ENDPOINT, {
@@ -270,23 +244,4 @@
         body: encodeForm(data)
       });
       const text = await res.text();
-      let out = {}; try { out = JSON.parse(text); } catch {}
-
-      if (res.ok && out.ok) {
-        form.reset();
-        msg.textContent = out.deduped ? T.errors.deduped : T.errors.success;
-        msg.className = 'text-sm text-green-400 text-center';
-      } else {
-        msg.textContent = (out && out.error) ? out.error : T.errors.generic;
-        msg.className = 'text-sm text-red-400 text-center';
-      }
-    } catch (err) {
-      msg.textContent = T.errors.network;
-      msg.className = 'text-sm text-red-400 text-center';
-    } finally {
-      btn.disabled = false;
-    }
-  });
-  </script>
-</body>
-</html>
+      let out = {}; try { out = JSON.parse(text); } catch
